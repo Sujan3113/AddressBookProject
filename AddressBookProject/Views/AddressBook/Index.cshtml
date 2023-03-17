@@ -1,0 +1,152 @@
+﻿@using AddressBook.Contracts.Dto
+@using static AddressBook.Application.AddressBookService
+@model PaginatedList<GetAll>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<p>
+    <a asp-action="Create" class="btn btn-info">Add New</a>
+</p>
+<form asp-controller="AddressBook" asp-action="Index">
+    <p>
+        Title: <input type="text" name="searchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@("FirstName")">Name</a>
+            </th>
+            <th>
+                Relationship
+            </th>
+            <th>
+            </th>
+            <th>
+                Permanent Address
+            </th>
+            <th>
+                Temporary Address
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Action
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.FirstName @item.MiddleName @item.LastName
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem=>item.Relationship)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem=>item.Email)
+                </td>
+                <td>
+                    @item.PermanentPlaceName,@item.PermanentDistrict-@item.PermanentProvince
+                </td>
+                <td>
+                    @item.TempPlaceName,@item.TempDistrict-@item.TempProvince
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem=>item.PhoneNumber)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.PersonalDetailId" class="btn btn-secondary">View</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        @if (Model.HasPreviousPage)
+        {
+            <li class="page-item"><a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Previous</a></li>
+        }
+        else
+        {
+            <li class="page-item disabled"><a class="page-link">Previous</a></li>
+        }
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            if (i == Model.PageIndex)
+            {
+                <li class="page-item active"><a class="page-link">@i</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-pageNumber="@i" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@i</a></li>
+            }
+        }
+  
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item"><a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Next</a></li>
+        }
+        else
+        {
+            <li class="page-item disabled"><a class="page-link">Next</a></li>
+        }
+        <li class="page-item mr-right">
+            <form asp-controller="AddressBook" asp-action="Index" class="form-inline">
+                @*<label for="pagesize" class="mr-2">Page Size:</label>*@
+                <select name="pagesize" id="pagesize" class="form-control" onchange="this.form.submit()" style="margin-left:1000px; width:100px">
+                    <option value="5">Page Size</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+            </form>
+        </li>
+    </ul>
+
+
+</nav>
+
+@*<div class="pagination">
+    @if (Model.HasPreviousPage)
+    {
+        <a href="?pageNumber=@(Model.PageIndex - 1)&searchString=@ViewData["CurrentFilter"]&sortOrder=@ViewData["CurrentSort"]">Previous</a>
+    }
+    else
+    {
+        <span>Previous</span>
+    }
+
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        if (i == Model.PageIndex)
+        {
+            <span >@i</span>
+        }
+        else
+        {
+            <a href="?pageNumber=@i&searchString=@ViewData["CurrentFilter"]&sortOrder=@ViewData["CurrentSort"]">@i</a>
+        }
+    }
+
+    @if (Model.HasNextPage)
+    {
+        <a href="?pageNumber=@(Model.PageIndex + 1)&searchString=@ViewData["CurrentFilter"]&sortOrder=@ViewData["CurrentSort"]">Next</a>
+    }
+    else
+    {
+        <span>Next</span>
+    }
+</div>*@

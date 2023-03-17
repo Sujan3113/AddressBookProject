@@ -1,0 +1,131 @@
+﻿@using AddressBook.Contracts.Dto
+@model UpdateDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <div class="d-flex ">
+        <a asp-action="Update" asp-route-id="@Model?.PersonalDetailId" class="btn btn-info ml-auto" style="width: 150px;">Edit</a>      
+    </div>
+
+    <hr />
+    <dl class="row">
+        @Html.HiddenFor(model => model.EmailId)
+        @Html.HiddenFor(model => model.CompanyId)
+        @Html.HiddenFor(model => model.PhoneId)
+        @Html.HiddenFor(model => model.PermanentId)
+        @Html.HiddenFor(model => model.TemporaryId)    
+        <dt class="col-sm-1">
+           
+        </dt>
+        <dd class="col-sm-10">
+            @*@Html.DisplayFor(model => model.ProfilePicture)*@
+            <img src="@Url.Content(Model.ProfilePicture)" alt="Profile Picture" width="200" height="200"?
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MiddleName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Relationship)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Relationship)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmailType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmailType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PermanentPlaceName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PermanentPlaceName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PermanentDistrict)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PermanentDistrict)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PermanentProvince)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PermanentProvince)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TempPlaceName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TempPlaceName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TempDistrict)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TempDistrict)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TempProvince)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TempProvince)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumberType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumberType)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
