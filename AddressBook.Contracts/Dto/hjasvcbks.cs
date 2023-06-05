@@ -8,5 +8,8 @@ namespace AddressBook.Contracts.Dto
 {
     internal class hjasvcbks
     {
+        public int MyProperty { get; set; }
+        public string Name { get; set; }
+        public string Value { get; set; }
     }
 }
