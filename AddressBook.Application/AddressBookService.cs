@@ -18,6 +18,7 @@ namespace AddressBook.Application
             _context = context;
         }
 
+
         public async Task<List<GetAll>> GetAllAddressBook(string searchString, string sortColumn, string currentFilter, int? pageNumber, int? pageSize)
         {
             var allList = from pd in _context.PersonalDetails
@@ -28,8 +29,7 @@ namespace AddressBook.Application
                           join ph in _context.Phone on pd.Id equals ph.PersonalDetailId
                           select new GetAll()
                           {
-                              //PersonalDetailId = pd.Id,
-                              PersonalDetailId=pd.Id,
+                              PersonalDetailId = pd.Id,
                               FirstName = pd.FirstName,
                               MiddleName = pd.MiddleName,
                               LastName = pd.LastName,
@@ -126,31 +126,19 @@ namespace AddressBook.Application
         {
             using (var trans = _context.Database.BeginTransaction())
             {
-                var pD = new PersonalDetail();
                 try
                 {
-                    if (addDto.ProfilePicture != null)
+                    //Add Personal Detail
+                    PersonalDetail personalDetail = new PersonalDetail()
                     {
-                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(addDto.ProfilePicture.FileName);
-                        var filePath = Path.Combine(@"C:\Users\Acer 5\source\repos\AddressBookProject\AddressBookProject\wwwroot\uploads\"+fileName);
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await addDto.ProfilePicture.CopyToAsync(stream);
-                        }
-                        //addDto.ProfilePicture = "/uploads/" + fileName;
-                        //Add Personal Detail
-                        PersonalDetail personalDetail = new PersonalDetail()
-                        {
-                            FirstName = addDto.FirstName,
-                            MiddleName = addDto.MiddleName,
-                            LastName = addDto.LastName,
-                            ProfilePicture ="/uploads/"+fileName,
-                            Relationship = addDto.Relationship,
-                        };
-                        pD = _context.Add(personalDetail).Entity;
-                        _context.SaveChanges();
-                    }
-                    
+                        FirstName = addDto.FirstName,
+                        MiddleName = addDto.MiddleName,
+                        LastName = addDto.LastName,
+                        ProfilePicture = addDto.ProfilePicture,
+                        Relationship = addDto.Relationship,
+                    };
+                    var pD = _context.Add(personalDetail).Entity;
+                    _context.SaveChanges();
 
                     //Add Company
                     Company company = new Company()
@@ -217,7 +205,7 @@ namespace AddressBook.Application
         }
 
 
-        /*public async Task<UpdateDto> UpdateAddressBook(UpdateDto updateDto)
+        public async Task<UpdateDto> UpdateAddressBook(UpdateDto updateDto)
         {
             using (var trans = _context.Database.BeginTransaction())
             {
@@ -302,7 +290,7 @@ namespace AddressBook.Application
                 }
             }
             return null;
-        }*/
+        }
 
         public async Task<UpdateDto> DetailAddressBook(int id)
         {
@@ -319,7 +307,7 @@ namespace AddressBook.Application
                                       FirstName = pd.FirstName,
                                       MiddleName = pd.MiddleName,
                                       LastName = pd.LastName,
-                                      SProfilePicture = pd.ProfilePicture,
+                                      ProfilePicture = pd.ProfilePicture,
                                       Relationship = pd.Relationship,
                                       Email = e.Email,
                                       PermanentPlaceName = pa.PlaceName,
@@ -338,13 +326,13 @@ namespace AddressBook.Application
                                       PhoneId = ph.Id,
                                       PermanentId = pa.Id,
                                       TemporaryId = ta.Id
-                                  }).FirstOrDefaultAsync();
+                                  }).FirstOrDefaultAsync();            
             abDetail.Relationships = PopulateRelation();
             abDetail.EmailTypes = PopulateEmail();
             abDetail.NumberTypes = PopulateNumber();
-
+            
             abDetail.PermanentProvinces = PopulateProvince();
-
+            
             abDetail.TempProvinces = PopulateProvince();
             return abDetail;
 
