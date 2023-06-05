@@ -24,7 +24,8 @@ namespace AddressBook.Contracts.Dto
         public Relationship Relationship { get; set; }
 
         //Emails except id,personaldetailid,Emailtype
-        [RegularExpression(@"^[a-zA-Z]+[0-9]{0,3}@(gmail|yahoo|hotmail).com$", ErrorMessage = "eg:abc1@(gmail|yahoo|hotmail).com")]
+        [RegularExpression(@"^[a-zA-Z0-9!#$%&.'*+/=?^_`{|}~-]*@[a-zA-Z]+\.com$", ErrorMessage = "eg:abc1@gmail.com")]
+        //[RegularExpression(@"^[a-zA-Z]+[0-9]{0,3}@(gmail|yahoo|hotmail).com$", ErrorMessage = "eg:abc1@(gmail|yahoo|hotmail).com")]
         public string Email { get; set; }
 
         //Permanent Address except id and personaldetailId
@@ -65,6 +66,7 @@ namespace AddressBook.Contracts.Dto
         //Email type
         public EmailType EmailType { get; set; }
 
+        public IFormFile ProfilePicture { get;set; }
         public IEnumerable<SelectListItem> EmailTypes { get; set; } = new List<SelectListItem>();
         public IEnumerable<SelectListItem> NumberTypes { get; set; } = new List<SelectListItem>();
 
@@ -77,6 +79,7 @@ namespace AddressBook.Contracts.Dto
         public int PhoneId { get; set; }
         public int PermanentId { get; set; }
         public int TemporaryId { get; set; }
+        public string SProfilePicture { get; set; }
 
     }
 }

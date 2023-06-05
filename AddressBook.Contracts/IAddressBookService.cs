@@ -17,7 +17,7 @@ namespace AddressBook.Contracts
         Task<AddDto> GetAllEnum();
         Task<AddDto> AddAddressBook(AddDto addDto);
         Task<UpdateDto> DetailAddressBook(int id);
-        Task<UpdateDto> UpdateAddressBook(UpdateDto updateDto);
+        /*Task<UpdateDto> UpdateAddressBook(UpdateDto updateDto);*/
         Task<UpdateDto> DeleteAddressBook(int id);
 
     }
